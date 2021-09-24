@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ActivityManager</string>
+    <string name="app_name_splash">Trello Clone</string>
 </resources>
