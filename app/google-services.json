@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "864039552691",
+    "project_id": "activitymanager-bbf9b",
+    "storage_bucket": "activitymanager-bbf9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864039552691:android:f650833f713901116492c6",
+        "android_client_info": {
+          "package_name": "com.jinncyapps.activitymanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864039552691-rc21jkhp66ija1a4m36cnk3116qemdir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC5XVmlzBBheD-ivomaljp8U6uibbZTGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864039552691-rc21jkhp66ija1a4m36cnk3116qemdir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
