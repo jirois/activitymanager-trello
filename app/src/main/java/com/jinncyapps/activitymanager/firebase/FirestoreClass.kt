@@ -1,11 +1,13 @@
 package com.jinncyapps.activitymanager.firebase
 
+import android.app.Activity
 import android.provider.SyncStateContract
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.jinncyapps.activitymanager.activities.LoginActivity
+import com.jinncyapps.activitymanager.activities.MainActivity
 import com.jinncyapps.activitymanager.activities.SignUp
 import com.jinncyapps.activitymanager.model.User
 import com.jinncyapps.activitymanager.utils.*
@@ -32,7 +34,7 @@ class FirestoreClass {
 
             }
     }
-    fun signInUser(activity: LoginActivity){
+    fun signInUser(activity: Activity){
         mFirestore.collection(Constants.USERS)
             .document(getCurentUserID())
             .get()
@@ -40,9 +42,16 @@ class FirestoreClass {
                 Log.e(
                     activity.javaClass.simpleName, document.toString()
                 )
-                val loggedUser = document.toObject(User::class.java)
-                if (loggedUser != null)
-                    activity.signInSuccess(loggedUser)
+                val loggedUser = document.toObject(User::class.java)!!
+                when (activity){
+                    is LoginActivity -> {
+                        activity.signInSuccess(loggedUser)
+                    }
+                    is MainActivity -> {
+                        activity.updateNavigationUserDetails(loggedUser)
+                    }
+                }
+
 
             }
             .addOnFailureListener{e ->
