@@ -1,13 +1,13 @@
 package com.jinncyapps.activitymanager.firebase
 
 import android.app.Activity
-import android.provider.SyncStateContract
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.jinncyapps.activitymanager.activities.LoginActivity
 import com.jinncyapps.activitymanager.activities.MainActivity
+import com.jinncyapps.activitymanager.activities.ProfileActivity
 import com.jinncyapps.activitymanager.activities.SignUp
 import com.jinncyapps.activitymanager.model.User
 import com.jinncyapps.activitymanager.utils.*
@@ -34,7 +34,7 @@ class FirestoreClass {
 
             }
     }
-    fun signInUser(activity: Activity){
+    fun loadUserData(activity: Activity){
         mFirestore.collection(Constants.USERS)
             .document(getCurentUserID())
             .get()
@@ -50,9 +50,10 @@ class FirestoreClass {
                     is MainActivity -> {
                         activity.updateNavigationUserDetails(loggedUser)
                     }
+                    is ProfileActivity -> {
+                        activity.setUserDataInUI(loggedUser)
+                    }
                 }
-
-
             }
             .addOnFailureListener{e ->
                 Log.e(
@@ -61,6 +62,25 @@ class FirestoreClass {
                     e
                 )
 
+            }
+    }
+
+    fun updateUserProfileData(activity: ProfileActivity, userHashMap: HashMap<String, Any>){
+        mFirestore.collection(Constants.USERS)
+            .document(getCurentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName,
+                "Profile Data updated successfully"
+                )
+                activity.profileUpdateSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating a board"
+                )
             }
     }
 
